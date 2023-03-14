@@ -1,5 +1,5 @@
-#ifndef HPP_UPPER0
-#define HPP_UPPER0
+#ifndef H_UPPER0
+#define H_UPPER0
 
 #include <iostream>
 #include <stdint.h>
