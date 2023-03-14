@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
     IMG_Quit();
 
     return 0;
-
 }
 
 

@@ -1,0 +1,139 @@
+sending data to server trough EWTP (header);
+000 is representation of 1 byte in decimal;
+001 - 099: functions
+100 - 127: others
+128 - 255: errors
+
+001 - first connect from intput to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+
+	return codes:
+		1 - success
+		2 - client with this id already exist
+		3 - limit of maximum users has been reached
+		4 - change your input id to your output id
+		5 - ip isn't allowed to connect
+}
+
+002 - first connect from output to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+
+	return codes:
+		1 - success
+		2 - client with this id already exist
+		3 - limit of maximum users
+		4 - change your output id to your input id
+		5 - ip isn't allowed to connect
+}
+
+003 - disconnect from input to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+}
+
+004 - disconnect from output to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip  
+}
+
+05 - send text message from input to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+	7rd-10rd byte: size_of_message
+	
+	info: max message length 8045
+}
+
+006 - send data from input to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+	7rd-14rd byte: size_of_data 
+	15rd-271rd byte: filename
+	272rd-*rd byte: data
+}
+
+100 - send refresh signal from output to server
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+	return codes:
+		100 - success
+}
+==========================================
+
+sending data to client trough EWTP (header);
+000 is representation of 1 byte in decimal;
+
+001 - Input client registered
+{
+	2rd byte: client_id
+	3rd byte: input_users_count
+	4rd byte: output_users_count
+	5rd byte: total_users_count
+}
+
+002 - Output client registered
+{
+	2rd byte: client_id
+	3rd byte: input_users_count
+	4rd byte: output_users_count
+	5rd byte: total_users_count
+}
+
+003 - Input client disconnected
+{
+	2rd byte: client_id
+	3rd byte: input_users_count
+	4rd byte: output_users_count
+	5rd byte: total_users_count
+}
+
+004 - Output client disconnected
+{
+	2rd byte: user_id
+	3rd byte: input_users_count
+	4rd byte: output_users_count
+	5rd byte: total_users_count
+}
+
+005 - Text message sended
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+	7rd-10rd byte: size_of_message
+}
+
+006 - Data sended
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+	7rd-14rd byte: size_of_data 
+	15rd-271rd byte: filename
+	272rd-*rd byte: data
+}
+
+009 - server disconnected
+{
+}
+
+100 - refresh signal
+{
+}
+
+101 - refresh signal and information about busy server
+{
+}
+
+128 - data download from client to server failed: timeout has been reached
+{
+	2rd byte: client_id
+	3rd-6rd byte: ip
+}

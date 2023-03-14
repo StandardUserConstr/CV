@@ -1,8 +1,2 @@
-in Makefile change DIRECTORY_INCLUDE and DIRECTORY_LIB to your location where you keeping SDL2 static libs .a and .h libs in 32bit version.
-if u wish to change app building to 64bit version then change from -m32 to -m64
-
-to build program: make
-to build src/icon.res: make icon
-to clean: make clean
-
-this version is only for Windows
+everything u can see in these folders was maded by me with my two hands and no one else;
+every work or project showed there was done by one individual so u can made ur mind like i 'now every aspect and understand every line of code maded there
