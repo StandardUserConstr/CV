@@ -1,0 +1,18 @@
+edit image.ini;
+max height length and width length: 21844;
+
+encoding in image.ini file is making in BGR standard so first numbers stands for B,second for G and last for R;
+that should looks like this: 255 0 54
+ 
+if u end with editing then make sure that at the end of file are two chars: //
+these symbols stands for end of file and causing end of executing the read data script;
+
+example of how file image.ini should looks like:
+
+width: 4
+height: 5
+255 0 0 | 255 0 0 | 255 0 0 | 255 0 0
+0 255 0 | 0 0 0 | 0 255 0 | 0 255 55
+0 0 255 | 0 0 255 | 12 0 255 | 0 0 255
+0 255 55 | 0 0 0 | 0 0 0 | 0 0 0
+255 0 0 | 255 0 0 | 255 0 0 | 255 0 0//

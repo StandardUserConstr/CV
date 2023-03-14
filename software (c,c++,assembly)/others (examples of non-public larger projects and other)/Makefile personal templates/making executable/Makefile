@@ -1,0 +1,27 @@
+COMPILATOR := g++
+FINALE_OUTPUT := program
+DIRECTORY_SRC := src
+DIRECTORY_INCLUDE := library
+STATIC_LIBS := $(wildcard ${DIRECTORY_INCLUDE}/lib*.a)
+STATIC_LIBS := $(STATIC_LIBS:${DIRECTORY_INCLUDE}/lib%.a=-l%)
+
+FINALE_FLAGS := -m32 -O2 -s -static-libstdc++ -static-libgcc  -L${DIRECTORY_INCLUDE} ${STATIC_LIBS} -I${DIRECTORY_INCLUDE}
+
+SRC_FILES_CPP := $(wildcard *.cpp)
+SRC_FILES_C := $(wildcard *.c)
+
+BINARY_SRC_FILES := $(SRC_FILES_CPP:%.cpp=${DIRECTORY_SRC}/%.o) $(SRC_FILES_C:%.c=${DIRECTORY_SRC}/%.o)
+BINARY_SRC_FLAGS := -m32 -O2 -s -L${DIRECTORY_INCLUDE} ${STATIC_LIBS} -I${DIRECTORY_INCLUDE}
+
+${FINALE_OUTPUT}: ${BINARY_SRC_FILES}
+	${COMPILATOR} $^ ${FINALE_FLAGS} -o ${FINALE_OUTPUT} && ${FINALE_OUTPUT}
+
+${DIRECTORY_SRC}/%.o: %.c
+	${COMPILATOR} $< -c ${BINARY_SRC_FLAGS} -o $@
+
+${DIRECTORY_SRC}/%.o: %.cpp
+	${COMPILATOR} $< -c ${BINARY_SRC_FLAGS} -o $@
+
+.PHONY: clean
+clean:
+	del /f /q $(SRC_FILES_CPP:%.cpp=${DIRECTORY_SRC}\\%.o) $(SRC_FILES_C:%.c=${DIRECTORY_SRC}\\%.o)

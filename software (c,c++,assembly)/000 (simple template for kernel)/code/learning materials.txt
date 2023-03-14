@@ -1,0 +1,6 @@
+files.osdev.org/mirrors/geezer/osd/graphics/modes.c
+wiki.osdev.org
+fysnet.net
+cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf
+ctyme.com/intr/int.htm
+ostad.nit.ac.ir/payaidea/ospic/file1615.pdf
