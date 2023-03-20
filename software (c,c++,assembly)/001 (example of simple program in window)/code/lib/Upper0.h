@@ -34,8 +34,8 @@ class SDL_TOOLS
 {
 
 private:
-    uint32_t FpsTimerStart;
-    uint32_t FpsTimerEnd;
+    uint64_t FpsTimerStart;
+    int32_t FpsTimerEnd;
 
 protected:
     void FpsControl_start() noexcept;
