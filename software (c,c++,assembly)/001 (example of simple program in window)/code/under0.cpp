@@ -100,7 +100,11 @@ uint8_t SDL_TOOLS::Event0() const noexcept
 void SDL_TOOLS::FpsControl_end(uint32_t fps) noexcept
 {
     this->FpsTimerEnd = (this->FpsTimerStart-SDL_GetTicks());
-    if(this->FpsTimerEnd<0.0) SDL_Delay((1000.0/fps)+this->FpsTimerEnd);
+        if(this->FpsTimerEnd<0)
+        {
+            if((1000.0/fps)+this->FpsTimerEnd<0) return;
+            SDL_Delay((1000.0/fps)+this->FpsTimerEnd);
+        }
     else SDL_Delay(1000.0/fps);
     return;
 }
