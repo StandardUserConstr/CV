@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-// <stdint.h> && <stdlib.h>
+// <stdint.h>
 // only for Little Endian
 void sort_unsigned_array(void* data,size_t size_of_data,size_t size_of_element)
 {
