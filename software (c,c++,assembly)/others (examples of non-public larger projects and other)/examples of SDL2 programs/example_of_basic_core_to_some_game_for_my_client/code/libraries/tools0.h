@@ -108,32 +108,276 @@ public:
 class SDL_TextureRectOperations
 {
 
-    typedef struct TextureRectVector
+    struct TextureRectVector
     {
         custom_vector0<SDL_Texture*> texture;
         custom_vector0<SDL_Rect> rect;
 
-    }TextureRectVector;
+    };
 
-    uint32_t Paste_texture_To_Renderer_Randomly_frame;
-    uint32_t Paste_texture_To_Renderer_Randomly_last_texture;
+
+//variables:
+    struct Paste_texture_To_Renderer_Randomly_variables
+    {
+        uint32_t frame;
+        uint32_t last_texture;
+
+    }variables0;
+
+    struct Paste_texture_To_Renderer_In_Order_One_Loop_variables
+    {
+        uint32_t frame;
+        uint32_t actual_sprite;
+
+    }variables1;
+
+    struct Change_Specified_texture_In_Opacity_Wave_One_Loop_variables
+    {
+        bool first_enter;
+        bool direction;
+        bool end_loop;
+
+        double opacity;
+       // double might;
+        //double might1;
+        //uint32_t counter;
+        double starting_speed;
+
+    }variables2;
+
+
+
 
 public:
+    static const uint8_t OPERATION_DONE = 10;
+
     SDL_TextureRectOperations()
     {
-        Paste_texture_To_Renderer_Randomly_last_texture = 0;
-        Paste_texture_To_Renderer_Randomly_frame = 0;
+        variables0.frame = 0;
+        variables0.last_texture = 0;
+
+        variables1.frame = 0;
+        variables1.actual_sprite = 0;
+
+        variables2.first_enter = 1;
+        variables2.end_loop = 0;
+
         srand(time(NULL));
     }
 
     TextureRectVector texture_rect_vector;
 
+    //returns 1 if there's a error;
     uint8_t Paste_texture_To_Renderer_Randomly(SDL_Renderer* render,uint32_t change_per_frame);
+    //returns 1 if there's a error; returns 10 if whole operation is done
+    uint8_t Paste_texture_To_Renderer_In_Order_One_Loop(SDL_Renderer* render,uint32_t change_per_frame);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //max_speed must be min 1.000
+    uint8_t Change_Specified_texture_In_Opacity_Wave_One_Loop(uint32_t specified_texture_index,double speed,double max_speed,double min_speed,double starting_speed);
+
+
+    //return 0 if not done; return 1 if done;
+    bool Is_Paste_texture_To_Renderer_In_Order_One_Loop_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_texture_In_Opacity_Wave_One_Loop_DONE();
+
+
+    void Reset_Paste_texture_To_Renderer_In_Order_One_Loop();
+    void Reset_Change_Specified_texture_In_Opacity_Wave_One_Loop();
+
 
     void Free_Textures_Clear_Rects_Reset_Object_Settings();
     void Reset_Object_Settings();
 
+    void Update_All_Rects(int16_t x,int16_t y,int16_t w,int16_t h);
+
 };
+
+class EnginePhysics2D_0
+{
+    struct Change_Specified_rect_Down_Up_Physics_One_Loop_variables
+    {
+        bool first_enter;
+        bool direction;
+        bool end_loop;
+
+        double starting_speed;
+        double speed;
+
+    }variables3;
+
+    struct Change_Specified_rect_Down_Up_Physics_variables
+    {
+        bool first_enter;
+        bool direction;
+        bool end_loop;
+        double slow_down_per_hit;
+
+        double starting_speed;
+        double last_starting_speed;
+        double speed;
+
+    }variables4;
+
+
+    struct Change_Specified_rect_Up_Down_Physics_One_Loop_variables
+    {
+        bool first_enter;
+        bool direction;
+        bool end_loop;
+
+        double starting_speed;
+        //double last_starting_speed;
+        double speed;
+
+    }variables5;
+
+    struct Change_Specified_rect_Up_Down_Physics_variables
+    {
+        bool first_enter;
+        bool direction;
+        bool end_loop;
+        double slow_down_per_hit;
+
+        double starting_speed;
+        double last_starting_speed;
+        double speed;
+
+    }variables6;
+
+    struct Change_Specified_rect_Down_Physics_One_Loop_variables
+    {
+        bool end_loop;
+        double time;
+
+    }variables7;
+
+    struct Change_Specified_rect_Down_Physics_variables
+    {
+        bool end_loop;
+        double time;
+        bool first_enter;
+        bool direction;
+
+        double weight_of_object;
+        double gravity;
+        double slow_down_per_hit;
+        double rest;
+
+    }variables8;
+
+    struct Change_Specified_rect_Left_Right_Physics_variables
+    {
+        bool first_enter;
+        bool end_loop;
+
+        bool direction;
+        double starting_speed;
+        double rest;
+
+
+    }variables9;
+
+public:
+    static const uint8_t OPERATION_DONE = 10;
+    EnginePhysics2D_0()
+    {
+        variables3.end_loop = 0;
+        variables3.first_enter = 1;
+        variables3.direction = 0;
+
+        variables4.first_enter = 1;
+        variables4.direction = 0;
+        variables4.end_loop = 0;
+
+        variables5.end_loop = 0;
+        variables5.first_enter = 1;
+        variables5.direction = 0;
+
+        variables6.first_enter = 1;
+        variables6.direction = 0;
+        variables6.end_loop = 0;
+
+        variables7.end_loop = 0;
+        variables7.time = 0.000;
+
+        variables8.end_loop = 0;
+        variables8.time = 0.000;
+        variables8.first_enter = 1;
+        variables8.direction = 0;
+
+        variables9.first_enter = 1;
+        variables9.end_loop = 0;
+    }
+
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //speed is from 0.0 to 1.0;
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Down_Up_Physics_One_Loop(/*SDL_Renderer* render,*/int* specified_rect_index,double starting_speed,double speed,int32_t rect_y_where_to_stop);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //speed is from 0.0 to 1.0;
+    //slow_down_per_hit is from 0.0 to 1.0;
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Down_Up_Physics(/*SDL_Renderer* render,*/int* specified_rect_index,double starting_speed,double speed,double slow_down_per_hit,uint32_t rect_y_where_to_stop);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //speed is from 0.0 to 1.0;
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Up_Down_Physics_One_Loop(/*SDL_Renderer* render,*/int* specified_rect_index,double starting_speed,double speed,int32_t rect_y_where_to_stop);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //speed is from 0.0 to 1.0;
+    //slow_down_per_hit is from 0.0 to 1.0;
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Up_Down_Physics(/*SDL_Renderer* render,*/int* specified_rect_index,double starting_speed,double speed,double slow_down_per_hit,uint32_t rect_y_where_to_stop);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Down_Physics_One_Loop(/*SDL_Renderer* render,*/int* specified_rect_index,double weight_of_object,double gravity,uint32_t rect_y_where_to_stop,uint32_t fps);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //slow_down_per_hit is from 0.0 to 1.0;
+    //weight_of_object is from 1.0 to upper;
+    //gravity is from 0.001 to upper
+    //rect_y_where_to_stop can be changed dynamically
+    //specified_rect_index can be changed dynamically
+    uint8_t Change_Specified_rect_Down_Physics(/*SDL_Renderer* render,*/int* specified_rect_index,double weight_of_object,double gravity,uint32_t rect_y_where_to_stop,double slow_down_per_hit,uint32_t fps);
+    //returns 1 or 2 if there's a error; if returns 10 then whole operation is done;
+    //speed_of_slowing_down can be changed dynamically
+    //slow_down_per_hit can be changed dynamically
+    //where_is_right_wall can be changed dynamically
+    //where_is_left_wall can be changed dynamically
+    //at_what_speed_stop can be changed dynamically
+    uint8_t Change_Specified_rect_Left_Right_Physics(int* specified_rect_index,double speed_of_slowing_down,double starting_speed,double slow_down_per_hit,int32_t where_is_right_wall,int32_t where_is_left_wall,bool starting_direction,double at_what_speed_stop);
+
+
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Down_Up_Physics_One_Loop_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Down_Up_Physics_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Up_Down_Physics_One_Loop_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Up_Down_Physics_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Down_Physics_One_Loop_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Down_Physics_DONE();
+    //return 0 if not done; return 1 if done;
+    bool Is_Change_Specified_rect_Left_Right_Physics_DONE();
+
+    void Reset_Change_Specified_rect_Down_Up_Physics_One_Loop();
+    void Reset_Change_Specified_rect_Down_Up_Physics();
+    void Reset_Change_Specified_rect_Up_Down_Physics_One_Loop();
+    void Reset_Change_Specified_rect_Up_Down_Physics();
+    void Reset_Change_Specified_rect_Down_Physics_One_Loop();
+    void Reset_Change_Specified_rect_Down_Physics();
+    void Reset_Change_Specified_rect_Left_Right_Physics();
+
+    void Reset_Object_Settings();
+};
+
 
 //#include <stdint.h>
 //#include <SDL2/SDL.h>
@@ -150,18 +394,20 @@ public:
         this->FpsControl_fps = fps;
     }
 
-    void FpsControl_EndFrame();   //add at the end of loop
-    void FpsControl_StartFrame();   //add at the the start of loop
+    void FpsControl_EndFrame();     //add at the end of loop;
+    void FpsControl_StartFrame();   //add at the the start of loop;
     void change_fps(uint32_t fps);
 
-    //changes opacity of texture to maximum per loop literals which represents variable "increase_by"
+    //changes opacity of texture to maximum per loop literals which represents variable "increase_by";
     uint8_t Change_Texture_Opacity_To_Max(SDL_Texture* texture,uint8_t increase_by);
+    //setting opacity to zero;
+    void Set_Texture_Opacity_To_Zero_In_Instant(SDL_Texture* texture);
 
     void ShowSimpleMessageBox0(Uint32 flag,const char* title,const char* message,const char* StringButton);
 
     //[0; 33] is lowest quality,[34; 66] is middle quality,[67; 100] is highest quality;
     void ScreenShotJPG(SDL_Renderer* render,const char* filename,int quality,size_t width,size_t height);
-    void ScreenShotPNG(SDL_Renderer* render,const char* filename,size_t width,size_t height);        //something need to be tested for multiplatform issues
+    void ScreenShotPNG(SDL_Renderer* render,const char* filename,size_t width,size_t height);
 };
 
 //#include <stdio.h>

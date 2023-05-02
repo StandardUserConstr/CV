@@ -3,7 +3,12 @@
 
 int main(int argc, char *argv[])
 {
-    main_program0 main_program;
+    Global_Variables global_variables;
+    init_everything(&global_variables);
+
+    main_program0 main_program(&global_variables);
     main_program.main_menu();
+
+    free_everything(&global_variables);
     return 0;
 }

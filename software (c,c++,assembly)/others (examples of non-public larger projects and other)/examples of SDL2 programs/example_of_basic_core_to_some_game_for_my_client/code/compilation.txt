@@ -1,6 +1,0 @@
-//compilation: g++ main.cpp libraries_source_code/main_program0.cpp libraries_source_code/tools0.cpp -LC:\MinGW2\x86_64-w64-mingw32\lib32 -IC:\MinGW2\x86_64-w64-mingw32\include -s -O2 -std=c++11 -static-libstdc++ -static-libgcc  -lmingw32 -lSDL2_image -lSDL2main -lSDL2 -lSDL2_mixer -m32 -o program.exe
-
-
-kompilacja do programu 32bitowego.
-tam gdzie jest opcja -L i -I daj tam sciezki tam gdzie masz biblioteki .a i .h do sdl2
-jak chcesz program bez konsoli to dodaj opcje -mwindows
